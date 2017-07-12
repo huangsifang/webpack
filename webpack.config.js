@@ -20,9 +20,34 @@ module.exports = {
 	        query: {
 	          presets: ['es2015','react']
 	        }
-	      }
+	      },
+	      {
+			test: /\.css$/,
+			use: ['style-loader', {
+				loader: 'css-loader',
+				options: {}
+			}, {
+				loader: 'postcss-loader',
+				options: {
+					plugins: function() {
+						return [
+							require('autoprefixer')
+						];
+					}
+				}
+			}]
+		  }
+	      // {
+	      //   test: /\.css$/,
+	      //   loader: 'style-loader!css-loader?modules!postcss'//添加对样式表的处理,感叹号的作用在于使同一文件能够使用不同类型的loader
+	      // }
 	    ]
   	},
+
+  	// postcss: [
+   //  	require('autoprefixer')//调用autoprefixer插件
+  	// ],
+
   	devServer: {
 	    contentBase: "./public",//本地服务器所加载的页面所在的目录
 	    colors: true,//终端中输出结果为彩色
